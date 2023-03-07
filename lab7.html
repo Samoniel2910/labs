@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h2>Задание 1</h2>
+    <p>Ширина</p>
+    <input type="number" id="width" />
+    <p>Высота</p>
+    <input type="number" id="height" />
+    <p>Множитель</p>
+    <input type="number" id="mult" />
+    <button id="btn1">Умножить</button>
+    <p id="res1">Результат:</p>
+
+    <h2>Задание 2</h2>
+    <button id="add" onclick="add()">Добавить сотрудника</button>
+    <button id="res2" onclick="sum()">Вычилисть сумму зарплат</button>
+    <p id="list">Список этих самых как их там: <br /></p>
+
+    <h2>Задание 3</h2>
+    <input type="text" id="name3" />
+    <input type="text" id="surname3" />
+    <button id="changeName" onclick="fName()">Изменить имя</button>
+    <button id="res3" onclick="show()">Показать полное имя сотрудника</button>
+    <p id="nameC">Полное имя сотрудника: Имя Фамилия<br /></p>
+  </body>
+
+  <h2>Задание 4</h2>
+  <input type="text" id="prop" />
+  <input type="text" id="val" />
+  <button id="pr" onclick="addPr()">Создать свойство</button>
+  <button id="del">Удалить свойство</button>
+  <button id="prAll">Показать объект</button>
+  <p id="res4"></p>
+
+  <h2>Задание 5</h2>
+  <div style="display: flex; justify-content: space-around">
+    <div>
+      <p>Имя</p>
+      <input type="text" id="name5" />
+      <p>Фамилия</p>
+      <input type="text" id="surname5" />
+      <p>Возраст</p>
+      <input type="text" id="age5" />
+      <button id="res5_1" style="display: block">
+        Вывод данных о студенте
+      </button>
+      <p id="res51">Результат</p>
+    </div>
+    <div>
+      <p>Номер группы</p>
+      <input type="text" id="number5" />
+      <p>Имя группы</p>
+      <input type="text" id="nameG5" />
+      <button id="res5_2" style="display: block">Вывод данных о группе</button>
+      <p id="res52">Результат</p>
+    </div>
+  </div>
+</html>
+<script type="text/javascript">
+  function getEl(dce) {
+    dce = document.getElementById(dce);
+  }
+
+  //first
+  getEl(btn1);
+  let menu = {
+    width: null,
+    height: null,
+    title: "menu",
+  };
+  btn1.addEventListener("click", () => {
+    menu.height = Number(document.getElementById("height").value);
+    menu.width = Number(document.getElementById("width").value);
+    function multiply(obj) {
+      for (let key in obj) {
+        if (typeof obj[key] == "number") {
+          obj[key] *= Number(document.getElementById("mult").value);
+        }
+      }
+    }
+    multiply(menu);
+    for (let i in menu) {
+      document.getElementById("res1").textContent += " " + menu[i];
+    }
+  });
+
+  //second
+  getEl(list);
+  let names = [],
+    numbers = [];
+  function add() {
+    let text = document.createElement("input");
+    text.type = "text";
+    text.addEventListener("change", () => {
+      names.push(text.value);
+    });
+
+    let number = document.createElement("input");
+    number.type = "number";
+    number.addEventListener("change", () => {
+      numbers.push(Number(number.value));
+    });
+
+    list.appendChild(text);
+    list.appendChild(number);
+    list.appendChild(document.createElement("br"));
+  }
+
+  function sum() {
+    let summ = 0;
+    numbers.forEach((element) => (summ += parseInt(element)));
+    list.textContent = `Список сотрудников: ${names.join(
+      ", "
+    )}. Общая сумма зарплат: ${summ}`;
+    list.appendChild(document.createElement("br"));
+  }
+
+  //third
+  getEl(name3);
+  getEl(surname3);
+  getEl(nameC);
+  let employee = {};
+  function fName() {
+    employee = Object.create(Object.prototype, {
+      name: { value: name3.value },
+      surname: { value: surname3.value },
+    });
+    console.log(employee);
+  }
+  function show() {
+    nameC.textContent = `Полное имя сотрудника: ${employee.name} ${employee.surname}`;
+  }
+
+  //fourth
+  getEl(prop);
+  getEl(val);
+  getEl(pr);
+  getEl(del);
+  getEl(prAll);
+  getEl(res4);
+
+  let employees = {};
+
+  function addPr() {
+    let p = prop.value;
+    employees = Object.create(Object.prototype, {
+      [p]: { value: val.value, configurable: true },
+    });
+
+    del.addEventListener("click", () => {
+      delete employees[p];
+    });
+
+    prAll.addEventListener("click", () => {
+      res4.textContent = `Свойство объекта: ${employees[p]}`;
+    });
+  }
+
+  //fifth
+  getEl(name5);
+  getEl(surname5);
+  getEl(age5);
+  getEl(res5_1);
+  getEl(res51);
+
+  getEl(number5);
+  getEl(nameG5);
+  getEl(res5_2);
+  getEl(res52);
+
+  function createStudent(name, surname, age) {
+    return {
+      name: name,
+      surname: surname,
+      age: age,
+      displayInfo: function () {
+        res51.textContent = `Имя: ${name}, фамилия: ${surname}, возраст: ${age}`;
+      },
+    };
+  }
+
+  function addInfo(obj, number, nameG) {
+    Object.defineProperties(student, {
+      number: { value: number },
+      nameG: { value: nameG },
+      showAllInfo: {
+        value: function () {
+          res52.textContent =
+            res51.textContent +
+            `, номер группы: ${number}, имя группы: ${nameG}`;
+        },
+      },
+    });
+
+    return student;
+  }
+
+  let student;
+
+  name5.addEventListener("change", () => {
+    surname5.addEventListener("change", () => {
+      age5.addEventListener("change", () => {
+        student = createStudent(name5.value, surname5.value, age5.value);
+        res5_1.addEventListener("click", () => {
+          student.displayInfo();
+        });
+      });
+    });
+  });
+
+  number5.addEventListener("change", () => {
+    nameG5.addEventListener("change", () => {
+      student = addInfo(student, number5.value, nameG5.value);
+      res5_2.addEventListener("click", () => {
+        student.showAllInfo();
+      });
+    });
+  });
+</script>
