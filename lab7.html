@@ -61,6 +61,60 @@
       <p id="res52">Результат</p>
     </div>
   </div>
+
+  <h2>Задание 6</h2>
+  <div style="display: flex; justify-content: space-around">
+    <div>
+      <p>Имя</p>
+      <input type="text" id="name6" />
+      <p>Фамилия</p>
+      <input type="text" id="surname6" />
+      <p>Возраст</p>
+      <input type="text" id="age6" />
+      <button id="res6_1" style="display: block">
+        Вывод данных о студенте
+      </button>
+      <p id="res61">Результат</p>
+    </div>
+    <div>
+      <p>Номер группы</p>
+      <input type="text" id="number6" />
+      <p>Имя группы</p>
+      <input type="text" id="nameG6" />
+      <button id="res6_2" style="display: block">Вывод данных о группе</button>
+      <p id="res62">Результат</p>
+    </div>
+  </div>
+
+  <h2>Задание 7</h2>
+  <div
+    style="
+      display: flex;
+      flex-direction: column;
+      width: 20vw;
+      margin: 0 auto;
+      background-color: antiquewhite;
+      border-radius: 20px;
+      padding: 10px;
+    "
+  >
+    <h3 style="text-align: center">Вход</h3>
+    <input type="text" id="name7" placeholder="Имя" style="margin: 7px" />
+    <input
+      type="password"
+      id="password71"
+      placeholder="Введите пароль"
+      style="margin: 7px"
+    />
+    <input
+      type="password"
+      id="password72"
+      placeholder="Подтвердите пароль"
+      style="margin: 7px"
+    />
+    <button id="button7" style="margin: 7px; cursor: pointer">Войти</button>
+    <p id="res7"></p>
+  </div>
 </html>
 <script type="text/javascript">
   function getEl(dce) {
@@ -221,5 +275,96 @@
         student.showAllInfo();
       });
     });
+  });
+
+  //sixth
+  //fifth
+  getEl(name6);
+  getEl(surname6);
+  getEl(age6);
+  getEl(res6_1);
+  getEl(res61);
+
+  getEl(number6);
+  getEl(nameG6);
+  getEl(res6_2);
+  getEl(res62);
+
+  function Student(name, surname, age) {
+    this.name = name;
+    this.surname = surname;
+    this.age = age;
+    this.displayInfo = function () {
+      res61.textContent = `Имя: ${name}, фамилия: ${surname}, возраст: ${age}`;
+    };
+  }
+
+  function Info(number, name) {
+    this.number = number;
+    this.name = name;
+    this.displayInfo = function () {
+      res62.textContent =
+        res61.textContent + `, номер группы: ${number}, имя группы: ${name}`;
+    };
+  }
+
+  name6.addEventListener("change", () => {
+    surname6.addEventListener("change", () => {
+      age6.addEventListener("change", () => {
+        let student6 = new Student(name6.value, surname6.value, age6.value);
+        res6_1.addEventListener("click", () => {
+          student6.displayInfo();
+        });
+      });
+    });
+  });
+
+  number6.addEventListener("change", () => {
+    nameG6.addEventListener("change", () => {
+      let info6 = new Info(number6.value, nameG6.value);
+      res6_2.addEventListener("click", () => {
+        info6.displayInfo();
+      });
+    });
+  });
+
+  //seventh
+  getEl(name7);
+  getEl(password71);
+  getEl(password72);
+  getEl(button7);
+  getEl(res7);
+
+  let Student7 = {
+    name: "Семён",
+    password: "123",
+  };
+
+  let EnteredStudent7 = {};
+  name7.addEventListener("change", () => {
+    console.log("name7 changed");
+    password71.addEventListener("change", () => {
+      console.log("password71 changed");
+      password72.addEventListener("change", () => {
+        console.log("password72 changed");
+        EnteredStudent7 = {
+          name: name7.value,
+          password1: password71.value,
+          password2: password72.value,
+        };
+      });
+    });
+  });
+
+  button7.addEventListener("click", () => {
+    if (
+      EnteredStudent7.password1 == EnteredStudent7.password2 &&
+      EnteredStudent7.password1 == Student7.password &&
+      EnteredStudent7.name == Student7.name
+    ) {
+      res7.textContent = "Добро пожаловать!";
+    } else {
+      res7.textContent = "Введены неверные данные!";
+    }
   });
 </script>
