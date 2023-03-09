@@ -115,6 +115,32 @@
     <button id="button7" style="margin: 7px; cursor: pointer">Войти</button>
     <p id="res7"></p>
   </div>
+
+  <h2>Задание 8</h2>
+  <h3>Первый пункт</h3>
+  <input type="text" id="name81" placeholder="Имя" />
+  <input type="text" id="age81" placeholder="Возраст" />
+  <button id="button81">Вывести данные студента</button>
+  <p id="res81"></p>
+  <h3>Второй пункт</h3>
+  <p id="arr82"></p>
+  <p id="res82"></p>
+
+  <h2>Задание 9</h2>
+  <p>Ученик</p>
+  <input type="text" id="name91" placeholder="Имя" />
+  <input type="text" id="age91" placeholder="Возраст" />
+  <input type="text" id="group91" placeholder="Группа" />
+  <button id="button91">Показать данные ученика</button>
+  <p id="res91">Данные ученика:</p>
+  <hr />
+
+  <p>Учитель</p>
+  <input type="text" id="name92" placeholder="Имя" />
+  <input type="text" id="age92" placeholder="Возраст" />
+  <input type="text" id="lesson" placeholder="Урок" />
+  <button id="button92">Показать данные учителя</button>
+  <p id="res92">Данные учителя:</p>
 </html>
 <script type="text/javascript">
   function getEl(dce) {
@@ -278,7 +304,6 @@
   });
 
   //sixth
-  //fifth
   getEl(name6);
   getEl(surname6);
   getEl(age6);
@@ -342,11 +367,8 @@
 
   let EnteredStudent7 = {};
   name7.addEventListener("change", () => {
-    console.log("name7 changed");
     password71.addEventListener("change", () => {
-      console.log("password71 changed");
       password72.addEventListener("change", () => {
-        console.log("password72 changed");
         EnteredStudent7 = {
           name: name7.value,
           password1: password71.value,
@@ -360,6 +382,7 @@
     if (
       EnteredStudent7.password1 == EnteredStudent7.password2 &&
       EnteredStudent7.password1 == Student7.password &&
+      EnteredStudent7.password2 == Student7.password &&
       EnteredStudent7.name == Student7.name
     ) {
       res7.textContent = "Добро пожаловать!";
@@ -367,4 +390,46 @@
       res7.textContent = "Введены неверные данные!";
     }
   });
+
+  //eighth_1
+  getEl(name81);
+  getEl(age81);
+  getEl(button81);
+  getEl(res81);
+
+  function Student8(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+
+  //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/call
+  let stud8 = new Student8(name81.value, age81.value);
+  function show8() {
+    res81.textContent = `Данные студента: имя - ${this.name}, возраст - ${this.age}`;
+  }
+  name81.addEventListener("change", () => {
+    stud8.name = name81.value;
+    age81.addEventListener("change", () => {
+      stud8.age = age81.value;
+    });
+    S;
+  });
+  button81.addEventListener("click", () => {
+    show8.call(stud8);
+  });
+
+  //eighth_2
+  getEl(arr82);
+  getEl(res82);
+  arr82.textContent = "Массив:";
+  res82.textContent = "Наибольший элемент в массиве: ";
+
+  let array = [];
+
+  //https://www.youtube.com/watch?v=UZqSpuUJPa0
+  for (let i = 0; i < 7; ++i) {
+    array[i] = Math.floor(Math.random() * 9) + 2;
+  }
+  arr82.textContent += ` ${array.join(", ")} `;
+  res82.textContent += `${Math.max.apply(null, array)}`;
 </script>
