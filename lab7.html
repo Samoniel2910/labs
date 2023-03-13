@@ -143,6 +143,15 @@
   <p id="res92"></p>
 
   <h2>Задание 10</h2>
+  <button id="button10" onclick="show10()">
+    Вывести деструктризированные фамилию, логин и пароль
+  </button>
+  <p id="res10"></p>
+
+  <button id="buttonFinal" onclick="showF()">
+    Вывести деструктризированные имя и возраст второго и четвёртого объекта
+  </button>
+  <p id="resFinal"></p>
 </html>
 <script type="text/javascript">
   function getEl(dce) {
@@ -499,4 +508,39 @@
     teacher92.groupOrLesson = lesson92.value;
     teacher92.showAll();
   });
+
+  //tenth
+  const obj10 = {
+    name: "Name",
+    surname: "Surname",
+    account: ["Login", "12345"],
+  };
+
+  const objF = {
+    student1: ["Name1", 18],
+    student2: ["Name2", 19],
+    student3: ["Name3", 20],
+    student4: ["Name4", 21],
+  };
+
+  const name = obj10.name,
+    surname = obj10.surname,
+    login = obj10.account[0],
+    password = obj10.account[1],
+    //
+    name2 = objF.student2[0],
+    age2 = objF.student2[1],
+    name4 = objF.student4[0],
+    age4 = objF.student4[1];
+
+  getEl(res10);
+  getEl(resFinal);
+
+  function show10() {
+    res10.textContent = `Имя - ${name}, фамилия - ${surname}, login - ${login}, password - ${password}.`;
+  }
+
+  function showF() {
+    resFinal.textContent = `name2 - ${name2}, age2 - ${age2}, name4 - ${name4}, age4 - ${age4}`;
+  }
 </script>
