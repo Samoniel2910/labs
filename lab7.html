@@ -128,23 +128,21 @@
 
   <h2>Задание 9</h2>
   <p>Ученик</p>
-  <div id="div91">
-    <input type="text" id="name91" class="student9" placeholder="Имя" />
-    <input type="text" id="age91" class="student9" placeholder="Возраст" />
-    <input type="text" id="group91" class="student9" placeholder="Группа" />
-    <button id="button91">Показать данные ученика</button>
-    <p id="res91"></p>
-  </div>
+  <input required type="text" id="name91" placeholder="Имя" />
+  <input required type="text" id="age91" placeholder="Возраст" />
+  <input required type="text" id="group91" placeholder="Группа" />
+  <button id="button91">Показать данные ученика</button>
+  <p id="res91"></p>
   <hr />
 
   <p>Учитель</p>
-  <div id="div92">
-    <input type="text" id="name92" placeholder="Имя" />
-    <input type="text" id="age92" placeholder="Возраст" />
-    <input type="text" id="lesson92" placeholder="Урок" />
-    <button id="button92">Показать данные учителя</button>
-    <p id="res92"></p>
-  </div>
+  <input type="text" id="name92" placeholder="Имя" />
+  <input type="text" id="age92" placeholder="Возраст" />
+  <input type="text" id="lesson92" placeholder="Урок" />
+  <button id="button92">Показать данные учителя</button>
+  <p id="res92"></p>
+
+  <h2>Задание 10</h2>
 </html>
 <script type="text/javascript">
   function getEl(dce) {
@@ -443,29 +441,30 @@
   getEl(group91);
   getEl(button91);
   getEl(res91);
-  getEl(div91);
 
   getEl(name92);
   getEl(age92);
   getEl(lesson92);
   getEl(button92);
   getEl(res92);
-  getEl(div92);
 
   res91.textContent = "Данные ученика:";
   res92.textContent = "Данные учителя:";
 
-  let student9 = document.querySelectorAll(".student9");
-
-  function ST(name, age, groupOrLesson, res, string) {
+  function ST(name, age, groupOrLesson, res, string, person) {
     this.name = name;
     this.age = age;
     this.groupOrLesson = groupOrLesson;
     this.res = res;
     this.string = string;
+    this.person = person;
 
     this.showAll = function () {
-      this.res += ` имя - ${this.name}, возраст - ${this.age}, ${this.string} - ${this.age}`;
+      if (this.name == "" || this.age == "" || this.groupOrLesson == "") {
+        this.res.textContent = "Введены некорректные данные!";
+      } else {
+        this.res.textContent = `Данные ${this.person}: имя - ${this.name}, возраст - ${this.age}, ${this.string} - ${this.groupOrLesson}.`;
+      }
     };
   }
 
@@ -473,14 +472,31 @@
     name91.value,
     age91.value,
     group91.value,
-    res91.textContent,
-    "группа"
+    res91,
+    "группа",
+    "ученика"
   );
 
-  student9.forEach((element) => {
-    element.addEventListener("change", () => {
-      student91[element] = element.value;
-      console.log(student91);
-    });
+  let teacher92 = new ST(
+    name92.value,
+    age92.value,
+    lesson92.value,
+    res92,
+    "урок",
+    "учителя"
+  );
+
+  button91.addEventListener("click", () => {
+    student91.name = name91.value;
+    student91.age = age91.value;
+    student91.groupOrLesson = group91.value;
+    student91.showAll();
+  });
+
+  button92.addEventListener("click", () => {
+    teacher92.name = name92.value;
+    teacher92.age = age92.value;
+    teacher92.groupOrLesson = lesson92.value;
+    teacher92.showAll();
   });
 </script>
